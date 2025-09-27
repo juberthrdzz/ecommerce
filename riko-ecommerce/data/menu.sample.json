@@ -1,0 +1,144 @@
+{
+  "restaurant": {
+    "id": "rest_mx_1",
+    "name": "Taquería Riko",
+    "currency": "MXN",
+    "hours": "09:00-22:00",
+    "address": "Av. Reforma 123, CDMX",
+    "phone": "+52 55 1234 5678",
+    "deliveryMethods": ["pickup", "delivery"],
+    "taxRate": 0.16
+  },
+  "categories": [
+    { "id": "cat_tacos", "name": "Tacos", "sort": 1 },
+    { "id": "cat_bebidas", "name": "Bebidas", "sort": 2 },
+    { "id": "cat_postres", "name": "Postres", "sort": 3 },
+    { "id": "cat_combos", "name": "Combos", "sort": 4 }
+  ],
+  "items": [
+    {
+      "id": "taco_pastor",
+      "name": "Taco al Pastor",
+      "description": "Cerdo marinado con piña y cilantro.",
+      "image": "/images/tacos/pastor.jpg",
+      "price": 22,
+      "categoryId": "cat_tacos",
+      "tags": ["spicy"],
+      "optionGroups": [
+        {
+          "id": "size",
+          "name": "Tamaño",
+          "min": 1,
+          "max": 1,
+          "options": [
+            { "id": "normal", "name": "Normal", "priceDelta": 0 },
+            { "id": "doble", "name": "Doble", "priceDelta": 12 }
+          ]
+        },
+        {
+          "id": "extras",
+          "name": "Extras",
+          "min": 0,
+          "max": 3,
+          "options": [
+            { "id": "queso", "name": "Queso", "priceDelta": 5 },
+            { "id": "piña", "name": "Piña extra", "priceDelta": 3 },
+            { "id": "salsa", "name": "Salsa especial", "priceDelta": 4 },
+            { "id": "cebolla", "name": "Cebolla extra", "priceDelta": 2 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "taco_suadero",
+      "name": "Taco de Suadero",
+      "description": "Corte suave con salsa verde.",
+      "image": "/images/tacos/suadero.jpg",
+      "price": 24,
+      "categoryId": "cat_tacos"
+    },
+    {
+      "id": "taco_asada",
+      "name": "Taco de Asada",
+      "description": "Carne asada al carbón.",
+      "image": "/images/tacos/asada.jpg",
+      "price": 26,
+      "categoryId": "cat_tacos",
+      "tags": ["veg"]
+    },
+    {
+      "id": "taco_carnitas",
+      "name": "Taco de Carnitas",
+      "description": "Clásico estilo Michoacán.",
+      "image": "/images/tacos/carnitas.jpg",
+      "price": 25,
+      "categoryId": "cat_tacos"
+    },
+    {
+      "id": "agua_horchata",
+      "name": "Agua de Horchata",
+      "description": "Refrescante bebida de arroz.",
+      "image": "/images/bebidas/horchata.jpg",
+      "price": 18,
+      "categoryId": "cat_bebidas"
+    },
+    {
+      "id": "agua_jamaica",
+      "name": "Agua de Jamaica",
+      "description": "Hibisco natural.",
+      "image": "/images/bebidas/jamaica.jpg",
+      "price": 18,
+      "categoryId": "cat_bebidas"
+    },
+    {
+      "id": "refresco_cola",
+      "name": "Refresco de Cola",
+      "description": "355ml",
+      "image": "/images/bebidas/cola.jpg",
+      "price": 20,
+      "categoryId": "cat_bebidas"
+    },
+    {
+      "id": "flan_casero",
+      "name": "Flan Casero",
+      "description": "Con caramelo.",
+      "image": "/images/postres/flan.jpg",
+      "price": 30,
+      "categoryId": "cat_postres"
+    },
+    {
+      "id": "churros",
+      "name": "Churros",
+      "description": "Azúcar y canela.",
+      "image": "/images/postres/churros.jpg",
+      "price": 28,
+      "categoryId": "cat_postres"
+    },
+    {
+      "id": "combo_pastor",
+      "name": "Combo Pastor",
+      "description": "3 tacos al pastor + bebida",
+      "image": "/images/combos/pastor_combo.jpg",
+      "price": 85,
+      "categoryId": "cat_combos"
+    },
+    {
+      "id": "combo_asada",
+      "name": "Combo Asada",
+      "description": "3 tacos de asada + bebida",
+      "image": "/images/combos/asada_combo.jpg",
+      "price": 92,
+      "categoryId": "cat_combos"
+    },
+    {
+      "id": "combo_mix",
+      "name": "Combo Mix",
+      "description": "3 tacos surtidos + bebida",
+      "image": "/images/combos/mix_combo.jpg",
+      "price": 90,
+      "categoryId": "cat_combos"
+    }
+  ]
+}
+
+
