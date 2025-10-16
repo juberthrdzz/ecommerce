@@ -14,6 +14,7 @@ export const env = {
   ORDER_HTTP_BASE_URL: process.env.ORDER_HTTP_BASE_URL || "",
   REQUIRE_AUTH_BEFORE_PAYMENT: getBoolean("REQUIRE_AUTH_BEFORE_PAYMENT", true),
   STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY || "",
+  STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY || "",
+  STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET || "",
 } as const;
-
 

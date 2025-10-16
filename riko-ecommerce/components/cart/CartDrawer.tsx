@@ -16,17 +16,17 @@ export default function CartDrawer() {
 
   const { subtotal, tax, fees, total } = calcTotals(items, uiConfig.fees);
 
+  if (!open) return null;
+
   return (
-    <div aria-hidden={!open} className="pointer-events-none fixed inset-0 z-40">
+    <>
       {/* Overlay */}
       <div
         onClick={close}
-        className={`absolute inset-0 bg-black/40 transition-opacity ${open ? "pointer-events-auto opacity-100" : "opacity-0"}`}
+        className="fixed inset-0 z-40 bg-black/40 transition-opacity"
       />
       {/* Panel */}
-      <aside
-        className={`absolute right-0 top-0 h-full w-full max-w-md transform bg-white shadow-xl transition-transform ${open ? "translate-x-0" : "translate-x-full"}`}
-      >
+      <aside className="fixed right-0 top-0 z-50 h-full w-full max-w-md transform bg-white shadow-xl transition-transform translate-x-0">
         <div className="flex items-center justify-between border-b px-4 py-3">
           <h2 className="text-base font-semibold">Tu carrito</h2>
           <button onClick={close} aria-label="Close cart" className="rounded p-2 hover:bg-zinc-100">
@@ -99,7 +99,7 @@ export default function CartDrawer() {
           </div>
         </div>
       </aside>
-    </div>
+    </>
   );
 }
 

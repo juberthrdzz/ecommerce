@@ -1,0 +1,404 @@
+{
+  "restaurant_id": "todo_empanadas",
+  "restaurant_name": "Todo Empanadas",
+  "combos": [
+    {
+      "id": "combo_goleador",
+      "name": "Combo Goleador",
+      "price": 164,
+      "description": "Incluye 2 empanadas a elegir y ensalada gaucha chica",
+      "available_modifiers": [
+        "aderezos"
+      ],
+      "required_components": [
+        {
+          "type": "empanada",
+          "quantity": 2
+        },
+        {
+          "type": "aderezos",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "promocion_12x10",
+      "name": "12x10 Empanadas",
+      "price": 540,
+      "description": "Pagas 10 y te llevas 12 empanadas a elegir",
+      "available_modifiers": [
+        "aderezos"
+      ],
+      "required_components": [
+        {
+          "type": "empanada",
+          "quantity": 12
+        },
+        {
+          "type": "aderezos",
+          "quantity": 4
+        }
+      ]
+    },
+    {
+      "id": "combo_con_todo",
+      "name": "Combo con Todo",
+      "price": 117,
+      "description": "Incluye 2 empanadas a elegir y papas gauchas",
+      "available_modifiers": [
+        "aderezos"
+      ],
+      "required_components": [
+        {
+          "type": "empanada",
+          "quantity": 2
+        },
+        {
+          "type": "aderezos",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "promocion_media_docena",
+      "name": "Promoción Media Docena",
+      "price": 291,
+      "description": "Incluye 6 empanadas a elegir",
+      "available_modifiers": [
+        "aderezos"
+      ],
+      "required_components": [
+        {
+          "type": "empanada",
+          "quantity": 6
+        },
+        {
+          "type": "aderezos",
+          "quantity": 2
+        }
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "name": "Combos",
+      "id": "combos",
+      "comment": "Categoria temporal para facilitar validacion, NO son diferentes a los combos listados en la seccion de combos arriba, NO duplicar combos, comparten ID",
+      "items": [
+        {
+          "id": "combo_goleador",
+          "name": "Combo Goleador",
+          "price": 164
+        },
+        {
+          "id": "promocion_12x10",
+          "name": "12x10 Empanadas",
+          "price": 540
+        },
+        {
+          "id": "combo_con_todo",
+          "name": "Combo con Todo",
+          "price": 117
+        },
+        {
+          "id": "promocion_media_docena",
+          "name": "Promoción Media Docena",
+          "price": 291
+        }
+      ]
+    },
+    {
+      "name": "Empanadas individuales",
+      "id": "empanada",
+      "items": [
+        {
+          "id": "pepperoni_con_queso",
+          "name": "Pepperoni con Queso",
+          "price": 54,
+          "description": "Rellena de pepperoni, salsa de tomate, y queso crema"
+        },
+        {
+          "id": "rajas_con_queso",
+          "name": "Rajas con Queso",
+          "price": 54,
+          "description": "Rellena de rajas en chile poblano y queso"
+        },
+        {
+          "id": "jamon_con_queso",
+          "name": "Jamón con Queso",
+          "price": 54,
+          "description": "Rellena de jamón ahumado, queso, y un toque de mantequilla"
+        },
+        {
+          "id": "humita",
+          "name": "Humita",
+          "price": 54,
+          "description": "Rellena de elote, queso y parmesano"
+        },
+        {
+          "id": "empapizza",
+          "name": "Empapizza",
+          "price": 54,
+          "description": "Rellena de salsa de tomate, queso, y un toque de orégano"
+        },
+        {
+          "id": "empanada_quesolovers",
+          "name": "Empanada Quesolovers",
+          "price": 54,
+          "description": "Rellena de mezcla de quesos",
+          "comment": "Elegir al pedir empanada de queso"
+        },
+        {
+          "id": "chorizo_argentino_con_queso",
+          "name": "Chorizo Argentino con Queso",
+          "price": 54,
+          "description": "Rellena de chorizo argentino, pimiento rojo y queso"
+        },
+        {
+          "id": "chistorra_con_queso",
+          "name": "Chistorra con Queso",
+          "price": 54,
+          "description": "Rellena de chistorra y mezcla de quesos"
+        },
+        {
+          "id": "champiñones_con_queso",
+          "name": "Champiñones con Queso",
+          "price": 54,
+          "description": "Rellena de champiñones guisados, cebolla y queso"
+        },
+        {
+          "id": "carne_tradicional",
+          "name": "Carne Tradicional",
+          "price": 54,
+          "description": "Rellena de carne molida, cebolla, pimientos, y huevo rallado"
+        },
+        {
+          "id": "carne_picante",
+          "name": "Carne Picante",
+          "price": 54,
+          "description": "Rellena de carne tradicional, y un toque de chile en vinagre"
+        },
+        {
+          "id": "carne_dulce",
+          "name": "Carne Dulce",
+          "price": 54,
+          "description": "Rellena de carne con uvas pasas y aceitunas"
+        },
+        {
+          "id": "carne_con_queso",
+          "name": "Carne con Queso",
+          "price": 54,
+          "description": "Rellena de carne tradicional, y queso fundido"
+        },
+        {
+          "id": "acelga_con_queso",
+          "name": "Acelga con Queso",
+          "price": 54,
+          "description": "Rellena de acelga con queso, parmesano, y cebolla"
+        }
+      ]
+    },
+    {
+      "name": "Empanada Keto",
+      "id": "empanada_keto",
+      "items": [
+        {
+          "id": "empanada_keto",
+          "name": "Empanada Keto",
+          "price": 85,
+          "description": "Empanada hecha con harina de coco y rellena de carne tradicional"
+        }
+      ]
+    },
+    {
+      "name": "Aderezos",
+      "id": "aderezos",
+      "items": [
+        {
+          "id": "bolsa_chipotle",
+          "name": "Bolsa de Chipotle",
+          "price": 15,
+          "description": "Bolsa de Chipotle"
+        },
+        {
+          "id": "bolsa_chimichurri",
+          "name": "Bolsa Chimichurri",
+          "price": 15,
+          "description": "Bolsa Chimichurri"
+        },
+        {
+          "id": "bolsa_chimi_picante",
+          "name": "Bolsa Chimi Picante",
+          "price": 15,
+          "description": "Bolsa Chimi Picante"
+        },
+        {
+          "id": "aderezo_aguacate",
+          "name": "Aderezos de Aguacate 2 oz",
+          "price": 15,
+          "description": "Aderezos de Aguacate 2 oz"
+        },
+        {
+          "id": "aderezo_yogurt",
+          "name": "Aderezo de Yogurth",
+          "price": 20,
+          "description": "Aderezo de Yogurth"
+        }
+      ]
+    },
+    {
+      "name": "Lasaña",
+      "id": "lasana",
+      "items": [
+        {
+          "id": "lasana",
+          "name": "Lasaña",
+          "price": 179,
+          "description": "Lasaña, para 1 o 2 personas"
+        }
+      ]
+    },
+    {
+      "name": "Postres",
+      "id": "postres",
+      "items": [
+        {
+          "id": "alfajores",
+          "name": "Alfajores",
+          "price": 39,
+          "description": "Dos galletas rellenas de dulce de leche, coco y y nuez"
+        },
+        {
+          "id": "cheesecake_de_membrillo",
+          "name": "Cheesecake de Membrillo",
+          "price": 59,
+          "description": "Cheesecake con una capa de dulce de membrillo"
+        },
+        {
+          "id": "tiramisu",
+          "name": "Tiramisú",
+          "price": 79,
+          "description": "Bizcocho artesanal con café, mascarpone suave y cacao"
+        },
+        {
+          "id": "empanada_eugenio",
+          "name": "Empanada Eugenio (postre)",
+          "price": 39,
+          "description": "Mini empanada dulce rellena de una gloria sevillana"
+        }
+      ]
+    },
+    {
+      "name": "Ensaladas",
+      "id": "ensaladas",
+      "items": [
+        {
+          "id": "ensalada_gaucha_grande",
+          "name": "Ensalada Gaucha Grande (Familiar)",
+          "price": 299,
+          "description": "Ensalada familiar con lechuga, tomate cherry, aguacate, aceitunas y queso Chihuahua. Para 3 a 6 personas"
+        },
+        {
+          "id": "ensalada_gaucha_mediana",
+          "name": "Ensalada Gaucha Mediana (Comparte)",
+          "price": 179,
+          "description": "Ensalada en pareja con lechuga, tomate cherry, aguacate, aceitunas y queso Chihuahua. Para 2 o 3 personas."
+        },
+        {
+          "id": "ensalada_gaucha_chica",
+          "name": "Ensalada Gaucha Chica (Clásica)",
+          "price": 85,
+          "description": "Ensalada individual con lechuga, tomate cherry, aguacate, aceitunas y queso Chihuahua. Para 1 a 2 personas."
+        }
+      ]
+    },
+    {
+      "name": "Acompañamientos",
+      "id": "acompanamientos",
+      "items": [
+        {
+          "id": "papas_gauchas",
+          "name": "Papas Gauchas",
+          "price": 64,
+          "description": "Papas Gauchas"
+        }
+      ]
+    },
+    {
+      "name": "Refrescos",
+      "id": "refrescos",
+      "items": [
+        {
+          "id": "fanta",
+          "name": "Fanta Naranja",
+          "price": 34
+        },
+        {
+          "id": "fresca",
+          "name": "Fresca",
+          "price": 34
+        },
+        {
+          "id": "fuze_tea",
+          "name": "Fuze Tea",
+          "price": 34
+        },
+        {
+          "id": "joya_de_manzana",
+          "name": "Joya de Manzana",
+          "price": 34
+        },
+        {
+          "id": "sprite",
+          "name": "Sprite",
+          "price": 34
+        },
+        {
+          "id": "agua_ciel",
+          "name": "Agua Ciel",
+          "price": 34
+        },
+        {
+          "id": "ciel_exprim",
+          "name": "Ciel Exprim",
+          "price": 34
+        },
+        {
+          "id": "coca_cola",
+          "name": "Coca-Cola",
+          "price": 34
+        },
+        {
+          "id": "coca_cola_light",
+          "name": "Coca-Cola Light",
+          "price": 34
+        },
+        {
+          "id": "coca_cola_sin_azucar",
+          "name": "Coca-Cola Sin Azúcar",
+          "price": 34
+        }
+      ]
+    }
+  ],
+  "modifiers": [
+    {
+      "name": "Aderezos",
+      "id": "aderezos",
+      "options": [
+        {
+          "id": "bolsa_chipotle",
+          "name": "Bolsa de Chipotle"
+        },
+        {
+          "id": "bolsa_chimichurri",
+          "name": "Bolsa de Chimichurri"
+        },
+        {
+          "id": "bolsa_chimi_picante",
+          "name": "Bolsa de Chimichurri Picante"
+        }
+      ]
+    }
+  ]
+}

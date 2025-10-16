@@ -8,7 +8,7 @@ export default function SiteHeader({ title }: { title: string }) {
   const openCart = useUIStore((s) => s.openCart);
   const count = items.reduce((s, i) => s + i.qty, 0);
   return (
-    <header className="sticky top-0 z-30 w-full border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+    <header className="fixed top-0 z-50 w-full border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
         <Link href="/" className="text-lg font-semibold">
           {title}

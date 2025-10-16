@@ -61,17 +61,47 @@ function coerceNumber(value: unknown, fallback = 0): number {
 export function normalizeMenu(incoming: unknown, mapping?: MappingConfig): NormalizedMenu {
   const m = { ...defaultMapping, ...(mapping ?? {}) };
 
-  // Expect either { categories, items, restaurant } or just items
+  // Expect either { categories, items, restaurant } or the new format { restaurant_id, restaurant_name, combos, categories, modifiers }
   const input = incoming as Record<string, unknown> | unknown[] | undefined;
   const asRecord = (input && !Array.isArray(input) ? (input as Record<string, unknown>) : undefined) || {};
-  const categoriesInput = Array.isArray(asRecord.categories) ? (asRecord.categories as unknown[]) : [];
-  const itemsInput = Array.isArray(asRecord.items)
-    ? (asRecord.items as unknown[])
-    : Array.isArray(input)
-    ? (input as unknown[])
-    : Array.isArray((asRecord as any).menu)
-    ? (((asRecord as any).menu as unknown[]))
-    : [];
+  
+  // Handle new format: categories with nested items
+  let categoriesInput: unknown[] = [];
+  let itemsInput: unknown[] = [];
+  
+  if (Array.isArray(asRecord.categories)) {
+    // New format: categories contain items within them
+    categoriesInput = asRecord.categories as unknown[];
+    itemsInput = [];
+    
+    // Flatten items from categories
+    categoriesInput.forEach((catUnknown: unknown) => {
+      const cat = (catUnknown ?? {}) as Record<string, unknown>;
+      if (Array.isArray(cat.items)) {
+        itemsInput.push(...(cat.items as unknown[]));
+      }
+    });
+    
+    // Also include combos if they exist (but avoid duplicates)
+    if (Array.isArray(asRecord.combos)) {
+      const existingItemIds = new Set(itemsInput.map(item => String((item as any)?.id ?? "")));
+      const uniqueCombos = (asRecord.combos as unknown[]).filter(combo => {
+        const comboId = String((combo as any)?.id ?? "");
+        return comboId && !existingItemIds.has(comboId);
+      });
+      itemsInput.push(...uniqueCombos);
+    }
+  } else {
+    // Legacy format: separate categories and items arrays
+    categoriesInput = Array.isArray(asRecord.categories) ? (asRecord.categories as unknown[]) : [];
+    itemsInput = Array.isArray(asRecord.items)
+      ? (asRecord.items as unknown[])
+      : Array.isArray(input)
+      ? (input as unknown[])
+      : Array.isArray((asRecord as any).menu)
+      ? (((asRecord as any).menu as unknown[]))
+      : [];
+  }
 
   // Build categories map. If not provided, infer from items by name
   const inferredCategories = new Map<string, { id: string; name: string; slug: string; sort?: number }>();
@@ -85,6 +115,24 @@ export function normalizeMenu(incoming: unknown, mapping?: MappingConfig): Norma
     return { id, name, slug, sort };
   });
 
+  // Create a map to track which items belong to which categories in the new format
+  const itemToCategoryMap = new Map<string, string>();
+  if (Array.isArray(asRecord.categories)) {
+    categoriesInput.forEach((catUnknown: unknown) => {
+      const cat = (catUnknown ?? {}) as Record<string, unknown>;
+      const catId = String(cat.id ?? cat.name ?? "");
+      if (Array.isArray(cat.items)) {
+        (cat.items as unknown[]).forEach((itemUnknown: unknown) => {
+          const item = (itemUnknown ?? {}) as Record<string, unknown>;
+          const itemId = String(item.id ?? item.name ?? "");
+          if (itemId) {
+            itemToCategoryMap.set(itemId, catId);
+          }
+        });
+      }
+    });
+  }
+
   const items = itemsInput.map((itUnknown: unknown, idx: number) => {
     const it = (itUnknown ?? {}) as Record<string, unknown>;
     const itemId = String((it as any)?.[m.itemIdKey] ?? (it as any)?.id ?? `item_${idx}`);
@@ -94,6 +142,12 @@ export function normalizeMenu(incoming: unknown, mapping?: MappingConfig): Norma
     const basePrice = coerceNumber((it as any)?.[m.itemPriceKey] ?? (it as any)?.basePrice ?? (it as any)?.price, 0);
 
     let categoryId: string | undefined = (it as any)?.[m.itemCategoryKey] as string | undefined;
+    
+    // Check if this item has a predefined category in the new format
+    if (!categoryId && itemToCategoryMap.has(itemId)) {
+      categoryId = itemToCategoryMap.get(itemId);
+    }
+    
     if (!categoryId && typeof (it as any)?.categoryName === "string") {
       // infer by name
       const catName = (it as any).categoryName as string;
@@ -152,22 +206,37 @@ export function normalizeMenu(incoming: unknown, mapping?: MappingConfig): Norma
   const categoryValues = Array.from(inferredCategories.values());
   const mergedCategories = categories.length ? categories : categoryValues.sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
 
-  const r = (asRecord.restaurant ?? {}) as Record<string, unknown>;
-  const deliveryMethodsRaw = Array.isArray((r as any).deliveryMethods)
-    ? (((r as any).deliveryMethods as unknown[]))
+  // Handle restaurant data - check both old and new formats
+  let restaurantData: Record<string, unknown> = {};
+  
+  if (asRecord.restaurant) {
+    // Old format: restaurant object
+    restaurantData = asRecord.restaurant as Record<string, unknown>;
+  } else {
+    // New format: restaurant_id, restaurant_name at root level
+    restaurantData = {
+      id: asRecord.restaurant_id,
+      name: asRecord.restaurant_name,
+      currency: "MXN", // Default for new format
+      deliveryMethods: ["pickup", "delivery"], // Default for new format
+    };
+  }
+  
+  const deliveryMethodsRaw = Array.isArray(restaurantData.deliveryMethods)
+    ? (restaurantData.deliveryMethods as unknown[])
     : [];
   const restaurant = {
-    id: String((r as any)?.id ?? "rest_1"),
-    name: String((r as any)?.name ?? "Riko Restaurant"),
-    currency: (((r as any)?.currency === "USD" ? "USD" : "MXN") as "MXN" | "USD"),
-    hours: typeof (r as any)?.hours === "string" ? ((r as any).hours as string) : undefined,
-    address: typeof (r as any)?.address === "string" ? ((r as any).address as string) : undefined,
-    phone: typeof (r as any)?.phone === "string" ? ((r as any).phone as string) : undefined,
+    id: String(restaurantData?.id ?? "rest_1"),
+    name: String(restaurantData?.name ?? "Riko Restaurant"),
+    currency: (((restaurantData?.currency === "USD" ? "USD" : "MXN") as "MXN" | "USD")),
+    hours: typeof restaurantData?.hours === "string" ? (restaurantData.hours as string) : undefined,
+    address: typeof restaurantData?.address === "string" ? (restaurantData.address as string) : undefined,
+    phone: typeof restaurantData?.phone === "string" ? (restaurantData.phone as string) : undefined,
     deliveryMethods:
       deliveryMethodsRaw.length > 0
         ? (deliveryMethodsRaw.filter((d) => d === "pickup" || d === "delivery") as ("pickup" | "delivery")[])
         : (["pickup", "delivery"] as ("pickup" | "delivery")[]),
-    taxRate: typeof (r as any)?.taxRate === "number" ? (((r as any).taxRate as number)) : undefined,
+    taxRate: typeof restaurantData?.taxRate === "number" ? ((restaurantData.taxRate as number)) : undefined,
   } as const;
 
   const normalized: NormalizedMenu = {

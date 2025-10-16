@@ -30,20 +30,14 @@ export default function CheckoutPage() {
   const orderGateway = env.ORDER_GATEWAY === "http" && env.ORDER_HTTP_BASE_URL
     ? new HttpOrderGateway(env.ORDER_HTTP_BASE_URL)
     : new MockOrderGateway();
-  const paymentGateway = env.PAYMENT_PROVIDER === "stripe" ? new StripePaymentGateway() : new MockPaymentGateway();
+  const paymentGateway = env.PAYMENT_PROVIDER === "stripe" ? new StripePaymentGateway("") : new MockPaymentGateway();
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (items.length === 0) return;
     try {
-      // Payment flow (mock only for now)
-      if (env.PAYMENT_PROVIDER === "mock") {
-        await paymentGateway.createPaymentIntent(total, uiConfig.currency);
-      } else {
-        // Stripe disabled - UI only
-        alert("Stripe UI only; requires backend to create PaymentIntent.");
-        return;
-      }
+      // Create PaymentIntent for either mock or stripe
+      await paymentGateway.createPaymentIntent(total, uiConfig.currency);
 
       const payload = {
         restaurantId: "rest_mx_1",

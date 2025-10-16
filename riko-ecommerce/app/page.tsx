@@ -10,7 +10,7 @@ import DishModal from "@/components/items/DishModal";
 import { Providers } from "./providers";
 
 async function loadMenu(): Promise<NormalizedMenu> {
-  const file = path.join(process.cwd(), "data", "menu.sample.json");
+  const file = path.join(process.cwd(), "data", "menu_data.json");
   const raw = await fs.promises.readFile(file, "utf-8");
   const json = JSON.parse(raw);
   return normalizeMenu(json);
